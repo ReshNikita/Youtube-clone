@@ -29,16 +29,20 @@ const Login: FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const navigate = useNavigate();
-  //const url = "https://todo-redev.herokuapp.com/api/auth/login";
+  const url = "https://todo-redev.herokuapp.com/api/auth/login";
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(import.meta.env.VITE_APP_URL, {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        url,
+        //import.meta.env.VITE_APP_URL,
+        {
+          email,
+          password,
+        }
+      );
 
       sessionStorage.setItem("token", data.token);
 
