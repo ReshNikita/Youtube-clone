@@ -199,7 +199,7 @@ const HomePage: FC = () => {
         </form>
       </Stack>
 
-      {data && <Videos videos={data} formDataSearch={formData.search} />}
+      {data ? <Videos videos={data} formDataSearch={formData.search} /> : null}
 
       <Copyright />
     </AppBar>
