@@ -53,7 +53,7 @@ const Registration: FC = () => {
 
       console.log(status, data);
 
-      navigate("/");
+      navigate("/Youtube-clone");
     } catch (error) {
       console.log(error);
 

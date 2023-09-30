@@ -23,10 +23,12 @@ const ErrorPage = lazy(() => import("./components/pages/ErrorPage"));
 
 const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
 
+//path="Youtube-clone"
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element={<Login />} />
+      <Route index element={<Login />} />
       <Route
         path="register"
         element={
