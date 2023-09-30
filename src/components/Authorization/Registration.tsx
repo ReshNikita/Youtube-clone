@@ -34,6 +34,8 @@ const Registration: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
 
+  const url = "https://todo-redev.herokuapp.com/api/users/register";
+
   const navigate = useNavigate();
 
   const onChangeGender = (e: ChangeEvent<HTMLInputElement>): void =>
@@ -46,19 +48,22 @@ const Registration: FC = () => {
     e.preventDefault();
 
     try {
-      const { status } = await axios.post(import.meta.env.VITE_APP_REGISTER, {
-        username,
-        password,
-        email,
-        gender,
-        age,
-      });
+      const { status } = await axios.post(
+        url,
+        //import.meta.env.VITE_APP_REGISTER,
+        {
+          username,
+          password,
+          email,
+          gender,
+          age,
+        }
+      );
 
-      if (status === 200) {
-        navigate("/");
-      }
+      navigate("/");
+      console.log(status);
     } catch (error) {
-      alert(alert("There is an error. Please, try again!"));
+      alert("There is an error. Please, try again!");
     }
   };
 
