@@ -47,13 +47,14 @@ const Registration: FC = () => {
 
     try {
       const { status, data } = await axios.post(
-        import.meta.env.VITE_APP_REGISTER,
+        "https://todo-redev.herokuapp.com/api/users/register",
+        // import.meta.env.VITE_APP_REGISTER,
         { username, password, email, gender, age }
       );
 
       console.log(status, data);
 
-      navigate("/Youtube-clone");
+      navigate("/");
     } catch (error) {
       console.log(error);
 
