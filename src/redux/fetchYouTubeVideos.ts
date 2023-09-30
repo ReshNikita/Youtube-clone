@@ -4,6 +4,7 @@ import axios from "axios";
 import { Data, VideoInfo, YoutubeVideo } from "../types";
 
 const URL = "https://youtube.googleapis.com/youtube/v3/search";
+const KEY = "AIzaSyAqZmpc-aYRLqARgK0FwJmLBQXNg9UwHuw";
 
 export const fetchYouTubeVideos = createAsyncThunk(
   "youtube/fetchYouTubeVideos",
@@ -11,7 +12,7 @@ export const fetchYouTubeVideos = createAsyncThunk(
     try {
       const { data } = await axios.get(URL, {
         params: {
-          key: import.meta.env.VITE_API_KEY,
+          key: KEY,
           part: "snippet",
           type: "video",
           maxResults: results,
@@ -20,7 +21,7 @@ export const fetchYouTubeVideos = createAsyncThunk(
         },
       });
 
-      return { data: data.items, search: search };
+      return { data: data?.items, search: search };
     } catch (error) {
       console.error(error);
     }

@@ -5,7 +5,7 @@ import { Button, List, Stack, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { useAppSelector } from "../../redux/hooks";
-import { Loader, Copyright, SavedRequest } from "..";
+import { Copyright, SavedRequest } from "..";
 
 import styles from "../../styles/savedRequestsPage.module.less";
 
@@ -31,11 +31,11 @@ const SavedRequestsPage: FC = () => {
   const navigate = useNavigate();
 
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
-  const { loading } = useAppSelector(state => state.youtube);
+  //const { loading } = useAppSelector(state => state.youtube);
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   const searchListItems = savedRequestsList?.map((item, index: number) => (
     <SavedRequest
