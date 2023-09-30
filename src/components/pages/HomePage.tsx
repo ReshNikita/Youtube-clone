@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Copyright, Loader, Videos } from "..";
+import { Copyright, Videos } from "..";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addItem } from "../../redux/savedRequestsSlice";
 import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
@@ -29,12 +29,8 @@ const HomePage: FC = () => {
     search: "",
   });
 
-  const { data, loading } = useAppSelector(state => state.youtube);
+  const { data } = useAppSelector(state => state.youtube);
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
-
-  // if (loading) {
-  //   return <Loader />;
-  // }
 
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
