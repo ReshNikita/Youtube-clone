@@ -33,14 +33,10 @@ const Login: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const { status, data } = await axios.post(
-        //import.meta.env.VITE_APP_URL,
-        "https://todo-redev.herokuapp.com/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const { status, data } = await axios.post(import.meta.env.VITE_APP_URL, {
+        email,
+        password,
+      });
 
       console.log(status);
       sessionStorage.setItem("token", data.token);
