@@ -32,9 +32,9 @@ const HomePage: FC = () => {
   const { data, loading } = useAppSelector(state => state.youtube);
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
@@ -199,7 +199,7 @@ const HomePage: FC = () => {
         </form>
       </Stack>
 
-      {data ? <Videos videos={data} formDataSearch={formData.search} /> : null}
+      {data && <Videos videos={data} formDataSearch={formData.search} />}
 
       <Copyright />
     </AppBar>
