@@ -46,17 +46,18 @@ const Registration: FC = () => {
     e.preventDefault();
 
     try {
-      const { status, data } = await axios.post(
-        import.meta.env.VITE_APP_REGISTER,
-        { username, password, email, gender, age }
-      );
+      const { status } = await axios.post(import.meta.env.VITE_APP_REGISTER, {
+        username,
+        password,
+        email,
+        gender,
+        age,
+      });
 
-      console.log(status, data);
-
-      navigate("/");
+      if (status === 200) {
+        navigate("/");
+      }
     } catch (error) {
-      console.log(error);
-
       alert(alert("There is an error. Please, try again!"));
     }
   };

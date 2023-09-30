@@ -33,18 +33,15 @@ const Login: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const { status, data } = await axios.post(import.meta.env.VITE_APP_URL, {
+      const { data } = await axios.post(import.meta.env.VITE_APP_URL, {
         email,
         password,
       });
 
-      console.log(status);
       sessionStorage.setItem("token", data.token);
 
       navigate("home");
     } catch (error) {
-      console.log(error);
-
       alert("There is an error. Please, try again!");
     }
   };
