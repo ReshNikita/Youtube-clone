@@ -34,8 +34,8 @@ const Login: FC = () => {
     e.preventDefault();
     try {
       const { status, data } = await axios.post(
-        "https://todo-redev.herokuapp.com/api/auth/login",
-        // import.meta.env.VITE_APP_URL,
+        // "https://todo-redev.herokuapp.com/api/auth/login",
+        import.meta.env.VITE_APP_URL,
         {
           email,
           password,
