@@ -47,7 +47,8 @@ const Registration: FC = () => {
 
     try {
       const { status, data } = await axios.post(
-        import.meta.env.VITE_APP_REGISTER,
+        //import.meta.env.VITE_APP_REGISTER,
+        "https://todo-redev.herokuapp.com/api/users/register",
         { username, password, email, gender, age }
       );
 
