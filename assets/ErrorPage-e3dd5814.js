@@ -1,0 +1,1 @@
+import{j as e,Q as a,R as o}from"./index-2088cb50.js";const m="/assets/404-f760b3fb.jpg",i="_imageBlock_4wedr_1",r="_homePageLink_4wedr_9",s={imageBlock:i,homePageLink:r},c=()=>e.jsxs("main",{className:s.imageBlock,children:[e.jsx("img",{src:m,alt:"Error 404"}),e.jsx(a,{to:"/home",className:s.homePageLink,children:"Back to home page"}),e.jsx(o,{})]});export{c as default};
