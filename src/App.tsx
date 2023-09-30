@@ -28,7 +28,7 @@ const router = createBrowserRouter(
     <Route>
       <Route index element={<Login />} />
       <Route
-        path="register"
+        path="/register"
         element={
           <ErrorBoundary
             FallbackComponent={ErrorPage}
