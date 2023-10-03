@@ -1,1 +1,0 @@
-import{$ as e,a0 as n,a1 as c,a2 as a}from"./index-b89002fb.js";function r(t=e){const o=t===e?n:c(t);return function(){const{store:s}=o();return s}}const p=r();function i(t=e){const o=t===e?p:r(t);return function(){return o().dispatch}}const x=i(),d=x,f=a;export{f as a,d as u};
