@@ -1,15 +1,15 @@
-import { FC } from "react";
-import { Outlet } from "react-router-dom";
+// import { FC } from "react";
+// import { Outlet } from "react-router-dom";
 
-import { HomePage } from "..";
+// import { HomePage } from "..";
 
-const Layout: FC = () => (
-  <div className="wrapper">
-    <HomePage />
-    <div className="content">
-      <Outlet />
-    </div>
-  </div>
-);
+// const Layout: FC = () => (
+//   <div className="wrapper">
+//     <HomePage />
+//     <div className="content">
+//       <Outlet />
+//     </div>
+//   </div>
+// );
 
-export default Layout;
+// export default Layout;

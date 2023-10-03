@@ -9,11 +9,13 @@ import {
 
 import { Login, Loader } from "./components";
 
+const HomePage = lazy(() => import("./components/pages/HomePage"));
+
 const SavedRequestsPage = lazy(
   () => import("./components/pages/SavedRequestsPage")
 );
 
-const Layout = lazy(() => import("./components/layout/Layout"));
+//const Layout = lazy(() => import("./components/layout/Layout"));
 
 const Registration = lazy(
   () => import("./components/Authorization/Registration")
@@ -26,7 +28,7 @@ const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route index element={<Login />} />
+      <Route path="/Youtube-clone" element={<Login />} />
       <Route
         path="/register"
         element={
@@ -41,7 +43,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="home"
+        path="/Youtube-clone/home"
         element={
           <ErrorBoundary
             FallbackComponent={ErrorPage}
@@ -49,14 +51,15 @@ const router = createBrowserRouter(
           >
             <Suspense fallback={<Loader />}>
               <PrivateRoute>
-                <Layout />
+                {/* <Layout /> */}
+                <HomePage />
               </PrivateRoute>
             </Suspense>
           </ErrorBoundary>
         }
       />
       <Route
-        path="home/saved"
+        path="/Youtube-clone/home/saved"
         element={
           <ErrorBoundary
             FallbackComponent={ErrorPage}

@@ -9,7 +9,7 @@ const PrivateRoute: FC<PrivateRouteProps> = ({ children }) => {
   const auth = sessionStorage.getItem("token");
 
   if (!auth) {
-    return <Navigate to="/" />;
+    return <Navigate to="/Youtube-clone" />;
   }
 
   return children;

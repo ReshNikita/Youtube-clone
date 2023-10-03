@@ -11,7 +11,7 @@ const ErrorPage: FC = () => (
   <main className={styles.imageBlock}>
     <img src={image} alt="Error 404" />
 
-    <Link to="/home" className={styles.homePageLink}>
+    <Link to="/Youtube-clone/home" className={styles.homePageLink}>
       Back to home page
     </Link>
 

@@ -115,7 +115,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
         sort: formData.sort,
       })
     );
-    navigate("/home");
+    navigate("/Youtube-clone/home");
   };
 
   const handleSaveButton = (e: MouseEvent): void => {

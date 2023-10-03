@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 import { Box, Modal } from "@mui/material";
 
@@ -6,7 +6,7 @@ import styles from "../styles/watchCard.module.less";
 
 interface WatchCardProps {
   isVideoModalOpen: boolean;
-  setIsVideoModalOpen: (e: boolean) => void;
+  setIsVideoModalOpen: Dispatch<SetStateAction<boolean>>;
   id: string;
 }
 

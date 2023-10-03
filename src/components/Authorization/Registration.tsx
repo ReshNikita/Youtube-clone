@@ -60,7 +60,7 @@ const Registration: FC = () => {
         }
       );
 
-      navigate("/");
+      navigate("/Youtube-clone");
       console.log(status);
     } catch (error) {
       alert("There is an error. Please, try again!");
@@ -250,11 +250,11 @@ const Registration: FC = () => {
 
             <Grid container justifyContent="center">
               <Grid item>
-                <Link to="/" className={styles.hasAccount}>
+                <Link to="/Youtube-clone" className={styles.hasAccount}>
                   Already have an account? &nbsp;
                 </Link>
 
-                <Link to="/" className={styles.signIn}>
+                <Link to="/Youtube-clone" className={styles.signIn}>
                   Sign in
                 </Link>
               </Grid>

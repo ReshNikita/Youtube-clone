@@ -46,7 +46,7 @@ const Login: FC = () => {
 
       sessionStorage.setItem("token", data.token);
 
-      navigate("home");
+      navigate("/Youtube-clone/home");
     } catch (error) {
       alert("There is an error. Please, try again!");
     }

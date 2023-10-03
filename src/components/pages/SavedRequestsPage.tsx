@@ -5,7 +5,7 @@ import { Button, List, Stack, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { useAppSelector } from "../../redux/hooks";
-import { Copyright, SavedRequest } from "..";
+import { Copyright, Loader, SavedRequest } from "..";
 
 import styles from "../../styles/savedRequestsPage.module.less";
 
@@ -31,23 +31,23 @@ const SavedRequestsPage: FC = () => {
   const navigate = useNavigate();
 
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
-  //const { loading } = useAppSelector(state => state.youtube);
+  const { loading } = useAppSelector(state => state.youtube);
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
 
-  const searchListItems = savedRequestsList?.map((item, index: number) => (
+  const searchListItems = savedRequestsList?.map((request, index: number) => (
     <SavedRequest
-      savedRequest={item.search}
-      newResult={item.results}
-      newSort={item.sort}
+      savedRequest={request.search}
+      newResult={request.results}
+      newSort={request.sort}
       key={index}
     />
   ));
 
   const handleLogOut = (): void => {
-    navigate("/");
+    navigate("/Youtube-clone");
     sessionStorage.removeItem("token");
   };
 
@@ -66,7 +66,7 @@ const SavedRequestsPage: FC = () => {
           },
         }}
       >
-        <Link to="/home" className={styles.logo}>
+        <Link to="/Youtube-clone/home" className={styles.logo}>
           <img src={LOGO_URL} alt="logo" height={45} />
 
           <Typography
@@ -128,7 +128,7 @@ const SavedRequestsPage: FC = () => {
               },
             }}
           >
-            <Link to="/home">Add your first request</Link>
+            <Link to="/Youtube-clone/home">Add your first request</Link>
           </Typography>
         )}
       </List>

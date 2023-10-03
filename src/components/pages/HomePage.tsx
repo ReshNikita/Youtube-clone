@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Copyright, Videos } from "..";
+import { Copyright, Loader, Videos } from "..";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addItem } from "../../redux/savedRequestsSlice";
 import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
@@ -29,8 +29,12 @@ const HomePage: FC = () => {
     search: "",
   });
 
-  const { data } = useAppSelector(state => state.youtube);
+  const { data, loading } = useAppSelector(state => state.youtube);
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
@@ -62,7 +66,7 @@ const HomePage: FC = () => {
   };
 
   const handleLogOut = (): void => {
-    navigate("/");
+    navigate("/Youtube-clone");
     sessionStorage.removeItem("token");
   };
 
@@ -76,7 +80,7 @@ const HomePage: FC = () => {
         top={0}
         p={2}
       >
-        <Link to="/home" className={styles.youtubeLogo}>
+        <Link to="/Youtube-clone/home" className={styles.youtubeLogo}>
           <img src={LOGO_URL} alt="logo" height={45} />
           <Typography
             component="h4"
@@ -95,7 +99,7 @@ const HomePage: FC = () => {
           </Typography>
         </Link>
 
-        <Link to="/home/saved">
+        <Link to="/Youtube-clone/home/saved">
           <Button
             color="error"
             sx={{
