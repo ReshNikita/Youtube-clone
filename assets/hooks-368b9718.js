@@ -1,0 +1,1 @@
+import{Z as e,$ as n,a0 as c,a1 as a}from"./index-41a35bfe.js";function r(t=e){const o=t===e?n:c(t);return function(){const{store:s}=o();return s}}const p=r();function i(t=e){const o=t===e?p:r(t);return function(){return o().dispatch}}const x=i(),d=x,f=a;export{f as a,d as u};
