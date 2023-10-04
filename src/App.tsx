@@ -15,8 +15,6 @@ const SavedRequestsPage = lazy(
   () => import("./components/pages/SavedRequestsPage")
 );
 
-//const Layout = lazy(() => import("./components/layout/Layout"));
-
 const Registration = lazy(
   () => import("./components/Authorization/Registration")
 );
@@ -51,7 +49,6 @@ const router = createBrowserRouter(
           >
             <Suspense fallback={<Loader />}>
               <PrivateRoute>
-                {/* <Layout /> */}
                 <HomePage />
               </PrivateRoute>
             </Suspense>

@@ -39,8 +39,8 @@ const HomePage: FC = () => {
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
     savedRequestsList.some(
-      item =>
-        item.search.trim().toLowerCase() ===
+      request =>
+        request.search.trim().toLowerCase() ===
         formData.search.trim().toLowerCase()
     );
 

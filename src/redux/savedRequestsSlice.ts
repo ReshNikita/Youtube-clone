@@ -33,29 +33,31 @@ export const savedRequestsSlice = createSlice({
       });
     },
     deleteItem: (state, action: PayloadAction<string>) => {
-      const newArr = state.value.filter(item => item.search !== action.payload);
+      const newArr = state.value.filter(
+        request => request.search !== action.payload
+      );
       return { ...state, value: newArr };
     },
     editItem: (state, action: PayloadAction<EditItem>) => {
       const { prevState, newState, results, sort } = action.payload;
 
       const isDuplicate = state.value.some(
-        item =>
-          item.search.toLowerCase().trim() === newState.toLowerCase().trim()
+        request =>
+          request.search.toLowerCase().trim() === newState.toLowerCase().trim()
       );
 
       if (isDuplicate) {
         return state;
       }
 
-      const newArr = state.value.map(item =>
-        item.search === prevState
+      const newArr = state.value.map(request =>
+        request.search === prevState
           ? {
               search: newState,
               results,
               sort,
             }
-          : item
+          : request
       );
       return { ...state, value: newArr };
     },

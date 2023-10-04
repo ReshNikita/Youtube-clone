@@ -35,14 +35,10 @@ const Login: FC = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        url,
-        //import.meta.env.VITE_APP_URL,
-        {
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post(url, {
+        email,
+        password,
+      });
 
       sessionStorage.setItem("token", data.token);
 

@@ -24,13 +24,13 @@ const BlockListVideos: FC<BlockListVideoProps> = ({ videos }) => (
       },
     }}
   >
-    {Object.values(videos).map((item, index: number) => (
+    {Object.values(videos).map((video, index: number) => (
       <VideoBlockCard
         key={index}
-        id={item?.id.videoId}
-        title={item?.snippet.title}
-        img={item?.snippet.thumbnails.high.url}
-        channelTitle={item?.snippet.channelTitle}
+        id={video?.id.videoId}
+        title={video?.snippet.title}
+        img={video?.snippet.thumbnails.high.url}
+        channelTitle={video?.snippet.channelTitle}
       />
     ))}
   </Stack>

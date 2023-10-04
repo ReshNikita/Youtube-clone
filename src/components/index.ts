@@ -1,6 +1,5 @@
 export { default as Login } from "./Authorization/Login";
 export { default as Copyright } from "./Copyright";
-//export { default as HomePage } from "./pages/HomePage";
 export { default as Loader } from "./Loader";
 export { default as Videos } from "./Videos";
 export { default as SavedRequest } from "./SavedRequest";

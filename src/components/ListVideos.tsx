@@ -11,13 +11,13 @@ interface ListVideoProps {
 
 const ListVideos: FC<ListVideoProps> = ({ videos }) => (
   <Stack alignItems="center" flexDirection="column" gap={2}>
-    {Object.values(videos).map((item, index: number) => (
+    {Object.values(videos).map((video, index: number) => (
       <VideoListCard
         key={index}
-        id={item?.id.videoId}
-        title={item?.snippet?.title}
-        img={item?.snippet?.thumbnails.high.url}
-        channelTitle={item?.snippet?.channelTitle}
+        id={video?.id.videoId}
+        title={video?.snippet?.title}
+        img={video?.snippet?.thumbnails.high.url}
+        channelTitle={video?.snippet?.channelTitle}
       />
     ))}
   </Stack>

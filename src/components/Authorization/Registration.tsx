@@ -48,17 +48,13 @@ const Registration: FC = () => {
     e.preventDefault();
 
     try {
-      const { status } = await axios.post(
-        url,
-        //import.meta.env.VITE_APP_REGISTER,
-        {
-          username,
-          password,
-          email,
-          gender,
-          age,
-        }
-      );
+      const { status } = await axios.post(url, {
+        username,
+        password,
+        email,
+        gender,
+        age,
+      });
 
       navigate("/Youtube-clone");
       console.log(status);
@@ -68,11 +64,8 @@ const Registration: FC = () => {
   };
 
   const handleBlur = (): void => {
-    if (+age < 10) {
-      setAge(10);
-    } else if (+age > 100) {
-      setAge(100);
-    }
+    if (+age < 10) setAge(10);
+    if (+age > 100) setAge(100);
   };
 
   return (
