@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 
 import { Copyright, Loader, Videos } from "..";
+import { CONSTANTS } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addItem } from "../../redux/savedRequestsSlice";
 import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
@@ -22,7 +23,6 @@ import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
 import styles from "../../styles/homePage.module.less";
 
 const HomePage: FC = () => {
-  const LOGO_URL = "https://i.ibb.co/s9Qys2j/logo.png";
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ const HomePage: FC = () => {
         p={2}
       >
         <Link to="/Youtube-clone/home" className={styles.youtubeLogo}>
-          <img src={LOGO_URL} alt="logo" height={45} />
+          <img src={CONSTANTS.LOGO_URL} alt="logo" height={45} />
           <Typography
             component="h4"
             variant="h4"
@@ -95,7 +95,7 @@ const HomePage: FC = () => {
               },
             }}
           >
-            YouTube
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Link>
 
@@ -117,7 +117,7 @@ const HomePage: FC = () => {
             }}
             startIcon={<BookmarkBorderIcon fontSize="large" />}
           >
-            Saved
+            {CONSTANTS.SAVED_LINK}
           </Button>
         </Link>
 
@@ -136,7 +136,7 @@ const HomePage: FC = () => {
             },
           }}
         >
-          Log out
+          {CONSTANTS.LOG_OUT}
         </Button>
       </Stack>
 

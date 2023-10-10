@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 
 import { Copyright } from "..";
+import { CONSTANTS } from "../../constants";
 
 import image from "../../assets/404.jpg";
 
@@ -12,7 +13,7 @@ const ErrorPage: FC = () => (
     <img src={image} alt="Error 404" />
 
     <Link to="/Youtube-clone/home" className={styles.homePageLink}>
-      Back to home page
+      {CONSTANTS.BACK_TO_HOME_PAGE}
     </Link>
 
     <Copyright />

@@ -23,18 +23,24 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import { Copyright } from "..";
+import { CONSTANTS } from "../../constants";
 
 import styles from "../../styles/registration.module.less";
 
+enum Gender {
+  Female = "female",
+  Male = "male",
+}
+
 const Registration: FC = () => {
   const [age, setAge] = useState<number | string>("");
-  const [gender, setGender] = useState<string>("female");
-  const [username, setUserName] = useState<string>("");
+  const [gender, setGender] = useState<string>(Gender.Female);
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
 
-  const url = "https://todo-redev.herokuapp.com/api/users/register";
+  const URL = import.meta.env.VITE_APP_REGISTER;
 
   const navigate = useNavigate();
 
@@ -48,7 +54,7 @@ const Registration: FC = () => {
     e.preventDefault();
 
     try {
-      const { status } = await axios.post(url, {
+      const { status } = await axios.post(URL, {
         username,
         password,
         email,
@@ -59,7 +65,7 @@ const Registration: FC = () => {
       navigate("/Youtube-clone");
       console.log(status);
     } catch (error) {
-      alert("There is an error. Please, try again!");
+      navigate("/error");
     }
   };
 
@@ -95,12 +101,12 @@ const Registration: FC = () => {
             }}
           />
           <Typography component="h5" variant="h5" color="#000">
-            YouTube-clone
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Box>
 
         <Typography component="h4" variant="h4" color="#000">
-          Registration
+          {CONSTANTS.REGISTRATION}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -109,7 +115,7 @@ const Registration: FC = () => {
               <Grid item xs={12}>
                 <TextField
                   value={username}
-                  onChange={e => setUserName(e.target.value)}
+                  onChange={e => setUsername(e.target.value)}
                   required={true}
                   label="Username"
                   id="username"
@@ -136,7 +142,7 @@ const Registration: FC = () => {
 
               <Grid item xs={12}>
                 <Tooltip
-                  title="Password must be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+                  title={CONSTANTS.TOOLTIP_TITLE}
                   id="password"
                   placement="left-start"
                   arrow
@@ -154,7 +160,7 @@ const Registration: FC = () => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={() => setIsPasswordShown(shown => !shown)}
+                            onClick={() => setIsPasswordShown(!isPasswordShown)}
                           >
                             {isPasswordShown ? (
                               <Visibility />
@@ -200,7 +206,7 @@ const Registration: FC = () => {
                 sx={{ m: 3 }}
                 color="error"
               >
-                Gender
+                {CONSTANTS.GENDER_LABEL}
               </FormLabel>
               <RadioGroup
                 value={gender}
@@ -238,17 +244,17 @@ const Registration: FC = () => {
               }}
               fullWidth
             >
-              Sign Up
+              {CONSTANTS.SIGN_UP}
             </Button>
 
             <Grid container justifyContent="center">
               <Grid item>
                 <Link to="/Youtube-clone" className={styles.hasAccount}>
-                  Already have an account? &nbsp;
+                  {CONSTANTS.ALREADY_HAVE_AN_ACCOUNT} &nbsp;
                 </Link>
 
                 <Link to="/Youtube-clone" className={styles.signIn}>
-                  Sign in
+                  {CONSTANTS.SIGN_IN}
                 </Link>
               </Grid>
             </Grid>

@@ -3,8 +3,8 @@ import axios from "axios";
 
 import { Data, VideoInfo, YoutubeVideo } from "../types";
 
-const URL = "https://youtube.googleapis.com/youtube/v3/search";
-const KEY = "AIzaSyAqZmpc-aYRLqARgK0FwJmLBQXNg9UwHuw";
+const URL = import.meta.env.VITE_YOUTUBE_API_URL;
+const KEY = import.meta.env.VITE_API_KEY;
 
 export const fetchYouTubeVideos = createAsyncThunk(
   "youtube/fetchYouTubeVideos",

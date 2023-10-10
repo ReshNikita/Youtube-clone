@@ -1,6 +1,7 @@
 import { FC, memo } from "react";
 
 import Typography from "@mui/material/Typography";
+import { CONSTANTS } from "../constants";
 
 import styles from "../styles/copyright.module.less";
 
@@ -15,7 +16,7 @@ const Copyright: FC = () => (
         opacity: "0.8",
       }}
     >
-      Copyright © YouTube-Clone {new Date().getFullYear()}
+      {CONSTANTS.COPYRIGHT} {new Date().getFullYear()}
     </Typography>
   </footer>
 );

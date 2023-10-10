@@ -9,6 +9,7 @@ import { BlockListVideos, ListVideos } from ".";
 import { VideoInfo } from "../types";
 
 import styles from "../styles/videos.module.less";
+import { CONSTANTS } from "../constants";
 
 interface VideosProps {
   videos: VideoInfo[];
@@ -27,7 +28,7 @@ const Videos: FC<VideosProps> = ({ videos, formDataSearch }) => {
         pl={2}
       >
         <Box className={styles.videoAbout}>
-          Video about
+          {CONSTANTS.VIDEO_ABOUT}
           <span className={styles.search}>
             &nbsp;« {formDataSearch} »&nbsp;
           </span>

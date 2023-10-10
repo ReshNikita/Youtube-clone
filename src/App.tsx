@@ -23,6 +23,8 @@ const ErrorPage = lazy(() => import("./components/pages/ErrorPage"));
 
 const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
 
+const AlertError = lazy(() => import("./components/AlertError"));
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -79,6 +81,19 @@ const router = createBrowserRouter(
           >
             <Suspense fallback={<Loader />}>
               <ErrorPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="error"
+        element={
+          <ErrorBoundary
+            FallbackComponent={ErrorPage}
+            onReset={() => <ErrorPage />}
+          >
+            <Suspense fallback={<Loader />}>
+              <AlertError />
             </Suspense>
           </ErrorBoundary>
         }
