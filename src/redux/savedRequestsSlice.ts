@@ -26,11 +26,16 @@ export const savedRequestsSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<string>) => {
-      state.value.push({
-        search: action.payload,
-        results: 12,
-        sort: "relevance",
-      });
+      state.value.find(
+        request =>
+          request.search.toLowerCase().trim() ===
+          action.payload.toLowerCase().trim()
+      ) ||
+        state.value.push({
+          search: action.payload,
+          results: 12,
+          sort: "relevance",
+        });
     },
     deleteItem: (state, action: PayloadAction<string>) => {
       const newArr = state.value.filter(

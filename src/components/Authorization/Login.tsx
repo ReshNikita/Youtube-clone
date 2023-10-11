@@ -15,10 +15,10 @@ import {
   Grid,
   Checkbox,
   FormControlLabel,
-  Button,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { LoadingButton } from "@mui/lab";
 
 import { Copyright } from "..";
 import { CONSTANTS } from "../../constants";
@@ -30,13 +30,15 @@ const Login: FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const navigate = useNavigate();
-  const URL = import.meta.env.VITE_APP_URL;
+
+  const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setIsRequestSent(true);
 
     try {
-      const { data } = await axios.post(URL, {
+      const { data } = await axios.post(import.meta.env.VITE_APP_URL, {
         email,
         password,
       });
@@ -123,7 +125,10 @@ const Login: FC = () => {
             control={<Checkbox value="remember" color="error" />}
             className={styles.formControlLabel}
           />
-          <Button
+
+          <LoadingButton
+            loading={isRequestSent}
+            disabled={isRequestSent}
             type="submit"
             variant="contained"
             fullWidth
@@ -138,8 +143,9 @@ const Login: FC = () => {
               },
             }}
           >
-            {CONSTANTS.LOG_IN}
-          </Button>
+            <span>{CONSTANTS.LOG_IN}</span>
+          </LoadingButton>
+
           <Grid container sx={{ mb: 3, mt: 2 }}>
             <Grid item xs>
               <Link to="#" className={styles.forgotPassword}>

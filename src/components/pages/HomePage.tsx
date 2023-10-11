@@ -99,27 +99,26 @@ const HomePage: FC = () => {
           </Typography>
         </Link>
 
-        <Link to="/Youtube-clone/home/saved">
-          <Button
-            color="error"
-            sx={{
-              fontSize: "21px",
-              textTransform: "none",
-              letterSpacing: "2.5px",
-              ":hover": {
-                textDecoration: "underline",
-                textUnderlineOffset: "4px",
-              },
+        <Button
+          onClick={() => navigate("/Youtube-clone/home/saved")}
+          color="error"
+          sx={{
+            fontSize: "21px",
+            textTransform: "none",
+            letterSpacing: "2.5px",
+            ":hover": {
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+            },
 
-              "@media (max-width: 385px)": {
-                fontSize: "17px",
-              },
-            }}
-            startIcon={<BookmarkBorderIcon fontSize="large" />}
-          >
-            {CONSTANTS.SAVED_LINK}
-          </Button>
-        </Link>
+            "@media (max-width: 385px)": {
+              fontSize: "17px",
+            },
+          }}
+          startIcon={<BookmarkBorderIcon fontSize="large" />}
+        >
+          {CONSTANTS.SAVED_LINK}
+        </Button>
 
         <Button
           onClick={() => handleLogOut()}
@@ -167,7 +166,7 @@ const HomePage: FC = () => {
               endAdornment: (
                 <>
                   {formData.search && (
-                    <Tooltip title="Save a request">
+                    <Tooltip title={CONSTANTS.TOOLTIP_SAVE_A_REQUEST}>
                       <IconButton
                         onClick={handleBookmarkIconClick}
                         aria-label="Bookmark Icon"

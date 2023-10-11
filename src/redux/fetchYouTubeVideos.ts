@@ -3,16 +3,13 @@ import axios from "axios";
 
 import { Data, VideoInfo, YoutubeVideo } from "../types";
 
-const URL = import.meta.env.VITE_YOUTUBE_API_URL;
-const KEY = import.meta.env.VITE_API_KEY;
-
 export const fetchYouTubeVideos = createAsyncThunk(
   "youtube/fetchYouTubeVideos",
   async ({ search, results, sort }: YoutubeVideo): Promise<Data> => {
     try {
-      const { data } = await axios.get(URL, {
+      const { data } = await axios.get(import.meta.env.VITE_YOUTUBE_API_URL, {
         params: {
-          key: KEY,
+          key: import.meta.env.VITE_API_KEY,
           part: "snippet",
           type: "video",
           maxResults: results,

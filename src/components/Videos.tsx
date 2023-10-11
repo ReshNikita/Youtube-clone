@@ -5,11 +5,11 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ViewCompactIcon from "@mui/icons-material/ViewCompact";
 
 import { BlockListVideos, ListVideos } from ".";
+import { CONSTANTS } from "../constants";
 
 import { VideoInfo } from "../types";
 
 import styles from "../styles/videos.module.less";
-import { CONSTANTS } from "../constants";
 
 interface VideosProps {
   videos: VideoInfo[];

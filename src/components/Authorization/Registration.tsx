@@ -17,10 +17,10 @@ import {
   Grid,
   FormControlLabel,
   TextField,
-  Button,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { LoadingButton } from "@mui/lab";
 
 import { Copyright } from "..";
 import { CONSTANTS } from "../../constants";
@@ -40,7 +40,7 @@ const Registration: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
 
-  const URL = import.meta.env.VITE_APP_REGISTER;
+  const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -52,9 +52,10 @@ const Registration: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setIsRequestSent(true);
 
     try {
-      const { status } = await axios.post(URL, {
+      const { status } = await axios.post(import.meta.env.VITE_APP_REGISTER, {
         username,
         password,
         email,
@@ -229,9 +230,12 @@ const Registration: FC = () => {
               </RadioGroup>
             </Grid>
 
-            <Button
+            <LoadingButton
               type="submit"
               variant="contained"
+              fullWidth
+              disabled={isRequestSent}
+              loading={isRequestSent}
               sx={{
                 mt: 3,
                 mb: 2,
@@ -242,10 +246,9 @@ const Registration: FC = () => {
                   bgcolor: " #fd0808",
                 },
               }}
-              fullWidth
             >
-              {CONSTANTS.SIGN_UP}
-            </Button>
+              <span>{CONSTANTS.SIGN_UP}</span>
+            </LoadingButton>
 
             <Grid container justifyContent="center">
               <Grid item>

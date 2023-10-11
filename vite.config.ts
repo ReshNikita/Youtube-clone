@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [react()],
   base: "/Youtube-clone/",
   server: {
-    port: 3006,
+    port: 3005,
   },
 });

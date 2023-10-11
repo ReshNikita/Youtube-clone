@@ -44,5 +44,6 @@ export const CONSTANTS = {
   TOOLTIP_TITLE:
     "Password must be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol",
   BACK: "BACK",
+  TOOLTIP_SAVE_A_REQUEST: "Save a request",
   ALERT_MESSAGE: "There is an error. Please, try again!",
 };
