@@ -90,17 +90,16 @@ const SavedRequest: FC<SavedRequestProps> = ({
   };
 
   const handleBlur = (): void => {
-    if (+formData.results < 1) {
+    Number(formData.results) < 1 &&
       setFormData(prevState => ({
         ...prevState,
         results: 1,
       }));
-    } else if (+formData.results > 50) {
+    Number(formData.results) > 50 &&
       setFormData(prevState => ({
         ...prevState,
         results: 50,
       }));
-    }
   };
 
   const handleDeleteItem = (e: MouseEvent): void => {

@@ -9,15 +9,17 @@ const AlertError = () => {
   return (
     <Stack
       sx={{
-        width: "100%",
-        zIndex: "100",
-        justifyContent: "center",
+        justifyContent: "space-around",
       }}
-      spacing={2}
-      mt={20}
+      spacing={1}
     >
       <Alert
-        sx={{ display: "flex", justifyContent: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          p: 0,
+          width: "100%",
+        }}
         severity="error"
       >
         {CONSTANTS.ALERT_MESSAGE}
@@ -25,9 +27,13 @@ const AlertError = () => {
 
       <Stack sx={{ alignItems: "center" }}>
         <Button
-          color="error"
           variant="contained"
-          sx={{ width: "50%" }}
+          sx={{
+            width: "30%",
+            borderRadius: "50px",
+            bgcolor: " #aa0707",
+            ":hover": { backgroundColor: "#fd0808" },
+          }}
           onClick={() => navigate("/Youtube-clone")}
         >
           {CONSTANTS.BACK}

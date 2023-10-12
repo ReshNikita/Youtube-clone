@@ -44,9 +44,10 @@ const Login: FC = () => {
       });
 
       sessionStorage.setItem("token", data.token);
-
+      setIsRequestSent(false);
       navigate("/Youtube-clone/home");
     } catch (error) {
+      setIsRequestSent(false);
       navigate("/error");
     }
   };
@@ -110,7 +111,7 @@ const Login: FC = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setIsPasswordShown(shown => !shown)}
+                    onClick={() => setIsPasswordShown(!isPasswordShown)}
                   >
                     {isPasswordShown ? <Visibility /> : <VisibilityOff />}
                   </IconButton>

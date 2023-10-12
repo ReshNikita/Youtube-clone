@@ -34,7 +34,7 @@ enum Gender {
 
 const Registration: FC = () => {
   const [age, setAge] = useState<number | string>("");
-  const [gender, setGender] = useState<string>(Gender.Female);
+  const [gender, setGender] = useState<Gender>(Gender.Female);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -45,7 +45,7 @@ const Registration: FC = () => {
   const navigate = useNavigate();
 
   const onChangeGender = (e: ChangeEvent<HTMLInputElement>): void =>
-    setGender((e.target as HTMLInputElement).value);
+    setGender(e.target.value as Gender);
 
   const onChangeAge = (e: ChangeEvent<HTMLInputElement>): void =>
     setAge(e.target.value === "" ? "" : Number(e.target.value));
@@ -62,17 +62,19 @@ const Registration: FC = () => {
         gender,
         age,
       });
-
+      setIsRequestSent(false);
       navigate("/Youtube-clone");
+
       console.log(status);
     } catch (error) {
+      setIsRequestSent(false);
       navigate("/error");
     }
   };
 
   const handleBlur = (): void => {
-    if (+age < 10) setAge(10);
-    if (+age > 100) setAge(100);
+    Number(age) < 10 && setAge(10);
+    Number(age) > 100 && setAge(100);
   };
 
   return (
@@ -218,13 +220,13 @@ const Registration: FC = () => {
                 <FormControlLabel
                   label="Female"
                   control={<Radio color="error" />}
-                  value="female"
+                  value={Gender.Female}
                   sx={{ color: "#000" }}
                 />
                 <FormControlLabel
                   label="Male"
                   control={<Radio color="error" />}
-                  value="male"
+                  value={Gender.Male}
                   sx={{ color: "#000" }}
                 />
               </RadioGroup>
