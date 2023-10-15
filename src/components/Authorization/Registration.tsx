@@ -17,55 +17,64 @@ import {
   Grid,
   FormControlLabel,
   TextField,
-  Button,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { LoadingButton } from "@mui/lab";
 
 import { Copyright } from "..";
+import { CONSTANTS } from "../../constants";
 
 import styles from "../../styles/registration.module.less";
 
+enum Gender {
+  Female = "female",
+  Male = "male",
+}
+
 const Registration: FC = () => {
   const [age, setAge] = useState<number | string>("");
-  const [gender, setGender] = useState<string>("female");
-  const [username, setUserName] = useState<string>("");
+  const [gender, setGender] = useState<Gender>(Gender.Female);
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
 
-  const url = "https://todo-redev.herokuapp.com/api/users/register";
+  const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   const onChangeGender = (e: ChangeEvent<HTMLInputElement>): void =>
-    setGender((e.target as HTMLInputElement).value);
+    setGender(e.target.value as Gender);
 
   const onChangeAge = (e: ChangeEvent<HTMLInputElement>): void =>
     setAge(e.target.value === "" ? "" : Number(e.target.value));
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setIsRequestSent(true);
 
     try {
-      const { status } = await axios.post(url, {
+      const { status } = await axios.post(import.meta.env.VITE_APP_REGISTER, {
         username,
         password,
         email,
         gender,
         age,
       });
-
+      setIsRequestSent(false);
       navigate("/Youtube-clone");
+
       console.log(status);
     } catch (error) {
-      alert("There is an error. Please, try again!");
+      setIsRequestSent(false);
+      navigate("/error");
     }
   };
 
   const handleBlur = (): void => {
-    if (+age < 10) setAge(10);
-    if (+age > 100) setAge(100);
+    Number(age) < 10 && setAge(10);
+    Number(age) > 100 && setAge(100);
   };
 
   return (
@@ -95,12 +104,12 @@ const Registration: FC = () => {
             }}
           />
           <Typography component="h5" variant="h5" color="#000">
-            YouTube-clone
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Box>
 
         <Typography component="h4" variant="h4" color="#000">
-          Registration
+          {CONSTANTS.REGISTRATION}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -109,9 +118,9 @@ const Registration: FC = () => {
               <Grid item xs={12}>
                 <TextField
                   value={username}
-                  onChange={e => setUserName(e.target.value)}
+                  onChange={e => setUsername(e.target.value)}
                   required={true}
-                  label="Username"
+                  label={CONSTANTS.USERNAME_LABEL}
                   id="username"
                   name="username"
                   autoFocus
@@ -125,7 +134,7 @@ const Registration: FC = () => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required={true}
-                  label="Email Address"
+                  label={CONSTANTS.EMAIL_LABEL}
                   id="email"
                   name="email"
                   autoComplete="email"
@@ -136,7 +145,7 @@ const Registration: FC = () => {
 
               <Grid item xs={12}>
                 <Tooltip
-                  title="Password must be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+                  title={CONSTANTS.TOOLTIP_TITLE}
                   id="password"
                   placement="left-start"
                   arrow
@@ -146,7 +155,7 @@ const Registration: FC = () => {
                     onChange={e => setPassword(e.target.value)}
                     required={true}
                     type={isPasswordShown ? "text" : "password"}
-                    label="Password"
+                    label={CONSTANTS.PASSWORD_LABEL}
                     id="password"
                     name="password"
                     InputProps={{
@@ -154,7 +163,7 @@ const Registration: FC = () => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
-                            onClick={() => setIsPasswordShown(shown => !shown)}
+                            onClick={() => setIsPasswordShown(!isPasswordShown)}
                           >
                             {isPasswordShown ? (
                               <Visibility />
@@ -177,7 +186,7 @@ const Registration: FC = () => {
                   onChange={onChangeAge}
                   onBlur={handleBlur}
                   required={true}
-                  label="Age"
+                  label={CONSTANTS.AGE_LABEL}
                   id="age"
                   name="age"
                   type="number"
@@ -200,7 +209,7 @@ const Registration: FC = () => {
                 sx={{ m: 3 }}
                 color="error"
               >
-                Gender
+                {CONSTANTS.GENDER_LABEL}
               </FormLabel>
               <RadioGroup
                 value={gender}
@@ -209,23 +218,26 @@ const Registration: FC = () => {
                 row
               >
                 <FormControlLabel
-                  label="Female"
+                  label={CONSTANTS.FEMALE_LABEL}
                   control={<Radio color="error" />}
-                  value="female"
+                  value={Gender.Female}
                   sx={{ color: "#000" }}
                 />
                 <FormControlLabel
-                  label="Male"
+                  label={CONSTANTS.MALE_LABEL}
                   control={<Radio color="error" />}
-                  value="male"
+                  value={Gender.Male}
                   sx={{ color: "#000" }}
                 />
               </RadioGroup>
             </Grid>
 
-            <Button
+            <LoadingButton
               type="submit"
               variant="contained"
+              fullWidth
+              disabled={isRequestSent}
+              loading={isRequestSent}
               sx={{
                 mt: 3,
                 mb: 2,
@@ -236,19 +248,18 @@ const Registration: FC = () => {
                   bgcolor: " #fd0808",
                 },
               }}
-              fullWidth
             >
-              Sign Up
-            </Button>
+              <span>{CONSTANTS.SIGN_UP}</span>
+            </LoadingButton>
 
             <Grid container justifyContent="center">
               <Grid item>
                 <Link to="/Youtube-clone" className={styles.hasAccount}>
-                  Already have an account? &nbsp;
+                  {CONSTANTS.ALREADY_HAVE_AN_ACCOUNT} &nbsp;
                 </Link>
 
                 <Link to="/Youtube-clone" className={styles.signIn}>
-                  Sign in
+                  {CONSTANTS.SIGN_IN}
                 </Link>
               </Grid>
             </Grid>

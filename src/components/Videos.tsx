@@ -5,6 +5,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ViewCompactIcon from "@mui/icons-material/ViewCompact";
 
 import { BlockListVideos, ListVideos } from ".";
+import { CONSTANTS } from "../constants";
 
 import { VideoInfo } from "../types";
 
@@ -27,7 +28,7 @@ const Videos: FC<VideosProps> = ({ videos, formDataSearch }) => {
         pl={2}
       >
         <Box className={styles.videoAbout}>
-          Video about
+          {CONSTANTS.VIDEO_ABOUT}
           <span className={styles.search}>
             &nbsp;« {formDataSearch} »&nbsp;
           </span>

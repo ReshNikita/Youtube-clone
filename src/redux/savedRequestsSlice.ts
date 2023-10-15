@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { CONSTANTS } from "../constants";
 
 type EditItem = {
   prevState: string;
@@ -26,11 +27,16 @@ export const savedRequestsSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<string>) => {
-      state.value.push({
-        search: action.payload,
-        results: 12,
-        sort: "relevance",
-      });
+      state.value.some(
+        request =>
+          request.search.toLowerCase().trim() ===
+          action.payload.toLowerCase().trim()
+      ) ||
+        state.value.push({
+          search: action.payload,
+          results: 12,
+          sort: CONSTANTS.SORT_OPTIONS.RELEVANCE,
+        });
     },
     deleteItem: (state, action: PayloadAction<string>) => {
       const newArr = state.value.filter(

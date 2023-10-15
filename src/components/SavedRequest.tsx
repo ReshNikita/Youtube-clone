@@ -25,6 +25,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteItem, editItem } from "../redux/savedRequestsSlice";
 import { useAppDispatch } from "../redux/hooks";
 import { fetchYouTubeVideos } from "../redux/fetchYouTubeVideos";
+import { CONSTANTS } from "../constants";
 
 interface SavedRequestProps {
   savedRequest: string;
@@ -38,7 +39,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
   newSort,
 }) => {
   const [formData, setFormData] = useState({
-    newState: savedRequest && "",
+    newState: savedRequest || "",
     results: newResult,
     sort: newSort,
   });
@@ -52,7 +53,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
     setFormData(prevState => {
       return {
         ...prevState,
-        newState: savedRequest && "",
+        newState: savedRequest || "",
         results: newResult,
         sort: newSort,
       };
@@ -89,17 +90,16 @@ const SavedRequest: FC<SavedRequestProps> = ({
   };
 
   const handleBlur = (): void => {
-    if (+formData.results < 1) {
+    Number(formData.results) < 1 &&
       setFormData(prevState => ({
         ...prevState,
         results: 1,
       }));
-    } else if (+formData.results > 50) {
+    Number(formData.results) > 50 &&
       setFormData(prevState => ({
         ...prevState,
         results: 50,
       }));
-    }
   };
 
   const handleDeleteItem = (e: MouseEvent): void => {
@@ -187,7 +187,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
             },
           }}
         >
-          <form>
+          <Box component="form">
             <Typography
               id="modal-title"
               variant="h4"
@@ -195,7 +195,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
               mb={2}
               textAlign="center"
             >
-              Edit a request
+              {CONSTANTS.EDIT_A_REQUEST}
             </Typography>
             <TextField
               value={savedRequest}
@@ -217,7 +217,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
             />
 
             <InputLabel id="demo-select-small-label" sx={{ mt: 1 }}>
-              Sort
+              {CONSTANTS.SORT_LABEL}
             </InputLabel>
 
             <Select
@@ -226,18 +226,28 @@ const SavedRequest: FC<SavedRequestProps> = ({
               labelId="demo-select-small-label"
               id="demo-select-small"
               name="sort"
-              sx={{ width: "100%" }}
+              fullWidth
               color="error"
             >
-              <MenuItem value="relevance">relevance</MenuItem>
-              <MenuItem value={"date"}>date</MenuItem>
-              <MenuItem value={"rating"}>rating</MenuItem>
-              <MenuItem value={"viewCount"}>viewCount</MenuItem>
-              <MenuItem value={"title"}>title</MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.RELEVANCE}>
+                {CONSTANTS.SORT_OPTIONS.RELEVANCE}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.DATE}>
+                {CONSTANTS.SORT_OPTIONS.DATE}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.RATING}>
+                {CONSTANTS.SORT_OPTIONS.RATING}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.VIEW_COUNT}>
+                {CONSTANTS.SORT_OPTIONS.VIEW_COUNT}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.TITLE}>
+                {CONSTANTS.SORT_OPTIONS.TITLE}
+              </MenuItem>
             </Select>
 
             <InputLabel id="input-slider" sx={{ mt: 3 }}>
-              Results Count
+              {CONSTANTS.SLIDER_LABEL}
             </InputLabel>
 
             <Stack direction="row" width="100%" sx={{ mt: 1 }}>
@@ -280,7 +290,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
                 sx={{ width: "45%", mt: 4 }}
                 color="error"
               >
-                Close
+                {CONSTANTS.MODAL_BUTTON_CLOSE}
               </Button>
 
               <Button
@@ -295,10 +305,10 @@ const SavedRequest: FC<SavedRequestProps> = ({
                 }}
                 color="error"
               >
-                Save
+                {CONSTANTS.MODAL_BUTTON_SAVE}
               </Button>
             </Stack>
-          </form>
+          </Box>
         </Box>
       </Modal>
     </>

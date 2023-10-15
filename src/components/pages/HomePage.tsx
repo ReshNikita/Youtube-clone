@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import {
   AppBar,
+  Box,
   Button,
   IconButton,
   Stack,
@@ -15,6 +16,7 @@ import {
 } from "@mui/material";
 
 import { Copyright, Loader, Videos } from "..";
+import { CONSTANTS } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addItem } from "../../redux/savedRequestsSlice";
 import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
@@ -22,7 +24,6 @@ import { fetchYouTubeVideos } from "../../redux/fetchYouTubeVideos";
 import styles from "../../styles/homePage.module.less";
 
 const HomePage: FC = () => {
-  const LOGO_URL = "https://i.ibb.co/s9Qys2j/logo.png";
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -31,10 +32,6 @@ const HomePage: FC = () => {
 
   const { data, loading } = useAppSelector(state => state.youtube);
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
@@ -60,7 +57,7 @@ const HomePage: FC = () => {
       fetchYouTubeVideos({
         search: formData.search,
         results: 12,
-        sort: "relevance",
+        sort: CONSTANTS.SORT_OPTIONS.RELEVANCE,
       })
     );
   };
@@ -70,7 +67,9 @@ const HomePage: FC = () => {
     sessionStorage.removeItem("token");
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <AppBar sx={{ bgcolor: "#000" }} position="static" elevation={1}>
       <Stack
         direction="row"
@@ -81,7 +80,7 @@ const HomePage: FC = () => {
         p={2}
       >
         <Link to="/Youtube-clone/home" className={styles.youtubeLogo}>
-          <img src={LOGO_URL} alt="logo" height={45} />
+          <img src={CONSTANTS.LOGO_URL} alt="logo" height={45} />
           <Typography
             component="h4"
             variant="h4"
@@ -95,31 +94,30 @@ const HomePage: FC = () => {
               },
             }}
           >
-            YouTube
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Link>
 
-        <Link to="/Youtube-clone/home/saved">
-          <Button
-            color="error"
-            sx={{
-              fontSize: "21px",
-              textTransform: "none",
-              letterSpacing: "2.5px",
-              ":hover": {
-                textDecoration: "underline",
-                textUnderlineOffset: "4px",
-              },
+        <Button
+          onClick={() => navigate("/Youtube-clone/home/saved")}
+          color="error"
+          sx={{
+            fontSize: "21px",
+            textTransform: "none",
+            letterSpacing: "2.5px",
+            ":hover": {
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+            },
 
-              "@media (max-width: 385px)": {
-                fontSize: "17px",
-              },
-            }}
-            startIcon={<BookmarkBorderIcon fontSize="large" />}
-          >
-            Saved
-          </Button>
-        </Link>
+            "@media (max-width: 385px)": {
+              fontSize: "17px",
+            },
+          }}
+          startIcon={<BookmarkBorderIcon fontSize="large" />}
+        >
+          {CONSTANTS.SAVED_LINK}
+        </Button>
 
         <Button
           onClick={() => handleLogOut()}
@@ -136,7 +134,7 @@ const HomePage: FC = () => {
             },
           }}
         >
-          Log out
+          {CONSTANTS.LOG_OUT}
         </Button>
       </Stack>
 
@@ -149,7 +147,11 @@ const HomePage: FC = () => {
         mt="10px"
         width="100%"
       >
-        <form onSubmit={handleFormSubmit} className={styles.searchForm}>
+        <Box
+          component="form"
+          onSubmit={handleFormSubmit}
+          className={styles.searchForm}
+        >
           <TextField
             value={formData.search}
             onChange={handleInputChange}
@@ -167,7 +169,7 @@ const HomePage: FC = () => {
               endAdornment: (
                 <>
                   {formData.search && (
-                    <Tooltip title="Save a request">
+                    <Tooltip title={CONSTANTS.TOOLTIP_SAVE_A_REQUEST}>
                       <IconButton
                         onClick={handleBookmarkIconClick}
                         aria-label="Bookmark Icon"
@@ -196,10 +198,10 @@ const HomePage: FC = () => {
               ),
             }}
           />
-        </form>
+        </Box>
       </Stack>
 
-      {data ? <Videos videos={data} formDataSearch={formData.search} /> : null}
+      {data && <Videos videos={data} formDataSearch={formData.search} />}
 
       <Copyright />
     </AppBar>

@@ -15,12 +15,13 @@ import {
   Grid,
   Checkbox,
   FormControlLabel,
-  Button,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { LoadingButton } from "@mui/lab";
 
 import { Copyright } from "..";
+import { CONSTANTS } from "../../constants";
 
 import styles from "../../styles/login.module.less";
 
@@ -29,22 +30,25 @@ const Login: FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const navigate = useNavigate();
-  const url = "https://todo-redev.herokuapp.com/api/auth/login";
+
+  const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    setIsRequestSent(true);
 
     try {
-      const { data } = await axios.post(url, {
+      const { data } = await axios.post(import.meta.env.VITE_APP_URL, {
         email,
         password,
       });
 
       sessionStorage.setItem("token", data.token);
-
+      setIsRequestSent(false);
       navigate("/Youtube-clone/home");
     } catch (error) {
-      alert("There is an error. Please, try again!");
+      setIsRequestSent(false);
+      navigate("/error");
     }
   };
 
@@ -69,18 +73,18 @@ const Login: FC = () => {
           />
 
           <Typography component="h5" variant="h5" color="#000">
-            YouTube-clone
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Box>
 
         <Typography component="h4" variant="h4" color="#000">
-          Login
+          {CONSTANTS.LOGIN}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <FormControl variant="outlined" sx={{ m: 1, width: "100%" }}>
             <InputLabel htmlFor="email" required color="error">
-              Email
+              {CONSTANTS.EMAIL_INPUT_LABEL}
             </InputLabel>
             <Input
               value={email}
@@ -95,7 +99,7 @@ const Login: FC = () => {
 
           <FormControl sx={{ m: 1, width: "100%" }}>
             <InputLabel htmlFor="password" required color="error">
-              Password
+              {CONSTANTS.PASSWORD_INPUT_LABEL}
             </InputLabel>
             <Input
               value={password}
@@ -107,7 +111,7 @@ const Login: FC = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setIsPasswordShown(shown => !shown)}
+                    onClick={() => setIsPasswordShown(!isPasswordShown)}
                   >
                     {isPasswordShown ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
@@ -118,11 +122,19 @@ const Login: FC = () => {
           </FormControl>
 
           <FormControlLabel
-            label="Remember me"
-            control={<Checkbox value="remember" color="error" />}
+            label={CONSTANTS.REMEMBER_ME}
+            control={
+              <Checkbox
+                value={CONSTANTS.CHECBOX_REMEMBER_VALUE}
+                color="error"
+              />
+            }
             className={styles.formControlLabel}
           />
-          <Button
+
+          <LoadingButton
+            loading={isRequestSent}
+            disabled={isRequestSent}
             type="submit"
             variant="contained"
             fullWidth
@@ -137,22 +149,23 @@ const Login: FC = () => {
               },
             }}
           >
-            Log in
-          </Button>
+            <span>{CONSTANTS.LOG_IN}</span>
+          </LoadingButton>
+
           <Grid container sx={{ mb: 3, mt: 2 }}>
             <Grid item xs>
               <Link to="#" className={styles.forgotPassword}>
-                Forgot password?
+                {CONSTANTS.FORGOT_PASSWORD}
               </Link>
             </Grid>
 
             <Grid item>
               <Link to="/register" className={styles.noAccount}>
-                Don't have an account? &nbsp;
+                {CONSTANTS.DONT_HAVE_AN_ACCOUNT} &nbsp;
               </Link>
 
               <Link to="/register" className={styles.signUp}>
-                Sign Up
+                {CONSTANTS.SIGN_UP}
               </Link>
             </Grid>
           </Grid>

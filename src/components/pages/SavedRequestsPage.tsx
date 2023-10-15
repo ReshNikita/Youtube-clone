@@ -2,40 +2,17 @@ import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Button, List, Stack, Typography } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { useAppSelector } from "../../redux/hooks";
 import { Copyright, Loader, SavedRequest } from "..";
+import { CONSTANTS } from "../../constants";
 
 import styles from "../../styles/savedRequestsPage.module.less";
 
-const buttonLogOutTheme = createTheme({
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontSize: "21px",
-          textTransform: "none",
-          ":hover": {
-            textDecoration: "underline",
-            textUnderlineOffset: "4.5px",
-          },
-        },
-      },
-    },
-  },
-});
-
 const SavedRequestsPage: FC = () => {
-  const LOGO_URL = "https://i.ibb.co/s9Qys2j/logo.png";
   const navigate = useNavigate();
-
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
   const { loading } = useAppSelector(state => state.youtube);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const searchListItems = savedRequestsList?.map((request, index: number) => (
     <SavedRequest
@@ -51,7 +28,9 @@ const SavedRequestsPage: FC = () => {
     sessionStorage.removeItem("token");
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <Stack
         direction="row"
@@ -67,7 +46,7 @@ const SavedRequestsPage: FC = () => {
         }}
       >
         <Link to="/Youtube-clone/home" className={styles.logo}>
-          <img src={LOGO_URL} alt="logo" height={45} />
+          <img src={CONSTANTS.LOGO_URL} alt="logo" height={45} />
 
           <Typography
             component="h4"
@@ -83,7 +62,7 @@ const SavedRequestsPage: FC = () => {
               },
             }}
           >
-            YouTube
+            {CONSTANTS.APP_NAME}
           </Typography>
         </Link>
 
@@ -99,14 +78,23 @@ const SavedRequestsPage: FC = () => {
             },
           }}
         >
-          Saved requests
+          {CONSTANTS.SAVED_REQUESTS}
         </Typography>
 
-        <ThemeProvider theme={buttonLogOutTheme}>
-          <Button onClick={() => handleLogOut()} color="error">
-            Log out
-          </Button>
-        </ThemeProvider>
+        <Button
+          onClick={() => handleLogOut()}
+          sx={{
+            fontSize: "21px",
+            textTransform: "none",
+            ":hover": {
+              textDecoration: "underline",
+              textUnderlineOffset: "4.5px",
+            },
+          }}
+          color="error"
+        >
+          {CONSTANTS.LOG_OUT}
+        </Button>
       </Stack>
 
       <List sx={{ ml: "12px" }}>
@@ -128,7 +116,9 @@ const SavedRequestsPage: FC = () => {
               },
             }}
           >
-            <Link to="/Youtube-clone/home">Add your first request</Link>
+            <Link to="/Youtube-clone/home">
+              {CONSTANTS.ADD_YOUR_FIRST_REQUEST}
+            </Link>
           </Typography>
         )}
       </List>
