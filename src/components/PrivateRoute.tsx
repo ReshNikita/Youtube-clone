@@ -5,14 +5,9 @@ interface PrivateRouteProps {
   children?: ReactNode;
 }
 
-const PrivateRoute: FC<PrivateRouteProps> = ({ children }) => {
-  const auth = sessionStorage.getItem("token");
+const auth = sessionStorage.getItem("token");
 
-  if (!auth) {
-    return <Navigate to="/Youtube-clone" />;
-  }
-
-  return children;
-};
+const PrivateRoute: FC<PrivateRouteProps> = ({ children }) =>
+  !auth ? <Navigate to="/Youtube-clone/" /> : children;
 
 export default PrivateRoute;

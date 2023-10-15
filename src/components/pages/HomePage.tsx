@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import {
   AppBar,
+  Box,
   Button,
   IconButton,
   Stack,
@@ -32,10 +33,6 @@ const HomePage: FC = () => {
   const { data, loading } = useAppSelector(state => state.youtube);
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   const isBookmarkIconActive = (_str: string): boolean =>
     (formData.search ? false : true) ||
     savedRequestsList.some(
@@ -60,7 +57,7 @@ const HomePage: FC = () => {
       fetchYouTubeVideos({
         search: formData.search,
         results: 12,
-        sort: "relevance",
+        sort: CONSTANTS.SORT_OPTIONS.RELEVANCE,
       })
     );
   };
@@ -70,7 +67,9 @@ const HomePage: FC = () => {
     sessionStorage.removeItem("token");
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <AppBar sx={{ bgcolor: "#000" }} position="static" elevation={1}>
       <Stack
         direction="row"
@@ -148,7 +147,11 @@ const HomePage: FC = () => {
         mt="10px"
         width="100%"
       >
-        <form onSubmit={handleFormSubmit} className={styles.searchForm}>
+        <Box
+          component="form"
+          onSubmit={handleFormSubmit}
+          className={styles.searchForm}
+        >
           <TextField
             value={formData.search}
             onChange={handleInputChange}
@@ -195,7 +198,7 @@ const HomePage: FC = () => {
               ),
             }}
           />
-        </form>
+        </Box>
       </Stack>
 
       {data && <Videos videos={data} formDataSearch={formData.search} />}

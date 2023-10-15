@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction } from "react";
 
 import { Box, Modal } from "@mui/material";
+import { CONSTANTS } from "../constants";
 
 import styles from "../styles/watchCard.module.less";
 
@@ -45,10 +46,10 @@ const WatchCard: FC<WatchCardProps> = ({
       <iframe
         className={styles.iframe}
         src={`https://www.youtube.com/embed/${id}?autoplay=1`}
-        title="YouTube-clone video player"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        title={CONSTANTS.IFRAME_TITLE}
+        allow={CONSTANTS.IFRAME_ALLOW}
         allowFullScreen
-      ></iframe>
+      />
     </Box>
   </Modal>
 );

@@ -14,10 +14,6 @@ const SavedRequestsPage: FC = () => {
   const savedRequestsList = useAppSelector(state => state.savedRequests.value);
   const { loading } = useAppSelector(state => state.youtube);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   const searchListItems = savedRequestsList?.map((request, index: number) => (
     <SavedRequest
       savedRequest={request.search}
@@ -32,7 +28,9 @@ const SavedRequestsPage: FC = () => {
     sessionStorage.removeItem("token");
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <Stack
         direction="row"

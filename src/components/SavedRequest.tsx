@@ -39,7 +39,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
   newSort,
 }) => {
   const [formData, setFormData] = useState({
-    newState: savedRequest && "",
+    newState: savedRequest || "",
     results: newResult,
     sort: newSort,
   });
@@ -53,7 +53,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
     setFormData(prevState => {
       return {
         ...prevState,
-        newState: savedRequest && "",
+        newState: savedRequest || "",
         results: newResult,
         sort: newSort,
       };
@@ -187,7 +187,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
             },
           }}
         >
-          <form>
+          <Box component="form">
             <Typography
               id="modal-title"
               variant="h4"
@@ -229,15 +229,21 @@ const SavedRequest: FC<SavedRequestProps> = ({
               fullWidth
               color="error"
             >
-              <MenuItem value="relevance">
-                {CONSTANTS.MENU_ITEM.RELEVANCE}
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.RELEVANCE}>
+                {CONSTANTS.SORT_OPTIONS.RELEVANCE}
               </MenuItem>
-              <MenuItem value={"date"}>{CONSTANTS.MENU_ITEM.DATE}</MenuItem>
-              <MenuItem value={"rating"}>{CONSTANTS.MENU_ITEM.RATING}</MenuItem>
-              <MenuItem value={"viewCount"}>
-                {CONSTANTS.MENU_ITEM.VIEW_COUNT}
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.DATE}>
+                {CONSTANTS.SORT_OPTIONS.DATE}
               </MenuItem>
-              <MenuItem value={"title"}>{CONSTANTS.MENU_ITEM.TITLE}</MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.RATING}>
+                {CONSTANTS.SORT_OPTIONS.RATING}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.VIEW_COUNT}>
+                {CONSTANTS.SORT_OPTIONS.VIEW_COUNT}
+              </MenuItem>
+              <MenuItem value={CONSTANTS.SORT_OPTIONS.TITLE}>
+                {CONSTANTS.SORT_OPTIONS.TITLE}
+              </MenuItem>
             </Select>
 
             <InputLabel id="input-slider" sx={{ mt: 3 }}>
@@ -302,7 +308,7 @@ const SavedRequest: FC<SavedRequestProps> = ({
                 {CONSTANTS.MODAL_BUTTON_SAVE}
               </Button>
             </Stack>
-          </form>
+          </Box>
         </Box>
       </Modal>
     </>

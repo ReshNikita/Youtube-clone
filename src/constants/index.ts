@@ -10,11 +10,19 @@ export const CONSTANTS = {
   LOG_IN: "Log in",
   FORGOT_PASSWORD: "Forgot Password",
   DONT_HAVE_AN_ACCOUNT: "Don't have an account",
+  CHECBOX_REMEMBER_VALUE: "remember",
+  REMEMBER_ME: "Remember me",
 
   REGISTRATION: "Registration",
   GENDER_LABEL: "Gender",
   ALREADY_HAVE_AN_ACCOUNT: "Already have an account?",
   SIGN_IN: "Sign in",
+  FEMALE_LABEL: "Female",
+  MALE_LABEL: "Male",
+  AGE_LABEL: "Age",
+  PASSWORD_LABEL: "Password",
+  EMAIL_LABEL: "Email Address",
+  USERNAME_LABEL: "Username",
 
   COPYRIGHT: "Copyright © YouTube-Clone",
 
@@ -33,7 +41,7 @@ export const CONSTANTS = {
 
   SAVED_LINK: "Saved",
 
-  MENU_ITEM: {
+  SORT_OPTIONS: {
     RELEVANCE: "relevance",
     DATE: "date",
     RATING: "rating",
@@ -45,5 +53,11 @@ export const CONSTANTS = {
     "Password must be at least 8 characters long, with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol",
   BACK: "BACK",
   TOOLTIP_SAVE_A_REQUEST: "Save a request",
+
   ALERT_MESSAGE: "There is an error. Please, try again!",
+
+  IFRAME_TITLE: "YouTube-clone video player",
+  IFRAME_ALLOW:
+    "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+  ERROR_IMAGE_ALT: "Error 404",
 };

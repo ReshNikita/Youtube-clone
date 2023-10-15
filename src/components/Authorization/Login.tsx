@@ -122,8 +122,13 @@ const Login: FC = () => {
           </FormControl>
 
           <FormControlLabel
-            label="Remember me"
-            control={<Checkbox value="remember" color="error" />}
+            label={CONSTANTS.REMEMBER_ME}
+            control={
+              <Checkbox
+                value={CONSTANTS.CHECBOX_REMEMBER_VALUE}
+                color="error"
+              />
+            }
             className={styles.formControlLabel}
           />
 

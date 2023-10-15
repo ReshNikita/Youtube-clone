@@ -120,7 +120,7 @@ const Registration: FC = () => {
                   value={username}
                   onChange={e => setUsername(e.target.value)}
                   required={true}
-                  label="Username"
+                  label={CONSTANTS.USERNAME_LABEL}
                   id="username"
                   name="username"
                   autoFocus
@@ -134,7 +134,7 @@ const Registration: FC = () => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required={true}
-                  label="Email Address"
+                  label={CONSTANTS.EMAIL_LABEL}
                   id="email"
                   name="email"
                   autoComplete="email"
@@ -155,7 +155,7 @@ const Registration: FC = () => {
                     onChange={e => setPassword(e.target.value)}
                     required={true}
                     type={isPasswordShown ? "text" : "password"}
-                    label="Password"
+                    label={CONSTANTS.PASSWORD_LABEL}
                     id="password"
                     name="password"
                     InputProps={{
@@ -186,7 +186,7 @@ const Registration: FC = () => {
                   onChange={onChangeAge}
                   onBlur={handleBlur}
                   required={true}
-                  label="Age"
+                  label={CONSTANTS.AGE_LABEL}
                   id="age"
                   name="age"
                   type="number"
@@ -218,13 +218,13 @@ const Registration: FC = () => {
                 row
               >
                 <FormControlLabel
-                  label="Female"
+                  label={CONSTANTS.FEMALE_LABEL}
                   control={<Radio color="error" />}
                   value={Gender.Female}
                   sx={{ color: "#000" }}
                 />
                 <FormControlLabel
-                  label="Male"
+                  label={CONSTANTS.MALE_LABEL}
                   control={<Radio color="error" />}
                   value={Gender.Male}
                   sx={{ color: "#000" }}

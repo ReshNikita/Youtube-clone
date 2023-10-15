@@ -10,7 +10,7 @@ import styles from "../../styles/errorPage.module.less";
 
 const ErrorPage: FC = () => (
   <main className={styles.imageBlock}>
-    <img src={image} alt="Error 404" />
+    <img src={image} alt={CONSTANTS.ERROR_IMAGE_ALT} />
 
     <Link to="/Youtube-clone/home" className={styles.homePageLink}>
       {CONSTANTS.BACK_TO_HOME_PAGE}
