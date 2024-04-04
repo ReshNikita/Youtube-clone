@@ -1,5 +1,4 @@
-import { FC, lazy, Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { FC, lazy } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -7,7 +6,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { Login, Loader } from "./components";
+import { Login } from "./components";
+import withWrapper from "./components/hoc/withWrapper";
 
 const HomePage = lazy(() => import("./components/pages/HomePage"));
 
@@ -29,75 +29,25 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/Youtube-clone" element={<Login />} />
-      <Route
-        path="/register"
-        element={
-          <ErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => <ErrorPage />}
-          >
-            <Suspense fallback={<Loader />}>
-              <Registration />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/register" element={withWrapper(<Registration />)} />
       <Route
         path="/Youtube-clone/home"
-        element={
-          <ErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => <ErrorPage />}
-          >
-            <Suspense fallback={<Loader />}>
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            </Suspense>
-          </ErrorBoundary>
-        }
+        element={withWrapper(
+          <PrivateRoute>
+            <HomePage />
+          </PrivateRoute>
+        )}
       />
       <Route
         path="/Youtube-clone/home/saved"
-        element={
-          <ErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => <ErrorPage />}
-          >
-            <Suspense fallback={<Loader />}>
-              <PrivateRoute>
-                <SavedRequestsPage />
-              </PrivateRoute>
-            </Suspense>
-          </ErrorBoundary>
-        }
+        element={withWrapper(
+          <PrivateRoute>
+            <SavedRequestsPage />
+          </PrivateRoute>
+        )}
       />
-      <Route
-        path="*"
-        element={
-          <ErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => <ErrorPage />}
-          >
-            <Suspense fallback={<Loader />}>
-              <ErrorPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="error"
-        element={
-          <ErrorBoundary
-            FallbackComponent={ErrorPage}
-            onReset={() => <ErrorPage />}
-          >
-            <Suspense fallback={<Loader />}>
-              <AlertError />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="*" element={withWrapper(<ErrorPage />)} />
+      <Route path="error" element={withWrapper(<AlertError />)} />
     </Route>
   )
 );
